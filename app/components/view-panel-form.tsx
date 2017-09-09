@@ -46,9 +46,9 @@ let ViewPanelForm = (props:CustomFormProps) :any => {
 
 
     return (<form onSubmit={props.handleSubmit(onSubmit.bind(this))}>                   
-                    {/* <Field name="firstName"  component= {renderField} type="text"/>    */}
-                    <Field name="firstName"  component= "input" type="text"/>                                          
-                    {/* <Field name="lastName"  component= {renderField} type="text"/>                     */}
+                    <Field name="firstName"  component= {renderField} type="text"/>   
+                    {/* <Field name="firstName"  component= "input" type="text"/>                                           */}
+                    <Field name="lastName"  component= {renderField} type="text"/>                    
                     <button type="submit" className="btn btn-primary">Submit</button>
     </form>);
     
