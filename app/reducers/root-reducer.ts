@@ -1,5 +1,6 @@
 import { Node } from './current-node-reducer';
 import { UPDATE_ROOT, Action, FETCH_ROOT } from '../actions';
+import { normalizeData } from '../utility';
 
 const initialRoot  = {
     label:'Root',
@@ -33,6 +34,10 @@ const initialRoot  = {
         }
     ]
 };
+
+Object.freeze(initialRoot);
+
+const data = normalizeData(initialRoot);
 
 export default function rootReducer( state = {label: "Root"}, action: Action) : any{
     switch (action.type) {

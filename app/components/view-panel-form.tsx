@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { FormProps, reduxForm, Field } from 'redux-form';
+import { InjectedFormProps, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
+import { updateNode, UPDATE_NODE } from '../actions';
 import { Node } from '../reducers';
 
 export interface NodeData{
@@ -11,12 +12,13 @@ export interface NodeData{
     [index: string]: any    
 } 
 
-interface CustomFormProps extends FormProps{
-    handleSubmit: any;
+interface CustomFormProps extends InjectedFormProps{
+    handleSubmit: any;  
+    updateNode: any; 
   }
 
 
-let ViewPanelForm = (props:CustomFormProps) :any => {    
+const ViewPanelForm = (props:CustomFormProps) :any => {    
 
     const labels :  NodeData = {
         'firstName': 'First Name',
@@ -25,7 +27,13 @@ let ViewPanelForm = (props:CustomFormProps) :any => {
     }
    
     const onSubmit = (values: any) => {
-        console.log(values.firstName);
+        props.updateNode({
+            type: UPDATE_NODE,
+            node: {
+                firstName: values.firstName,
+                lastName: values.lastName,
+            }
+        });
     }
 
    const renderField = (field : any ) :JSX.Element => {             
@@ -61,7 +69,9 @@ const mapStateToProps = ( state: {currentNode: Node}, props: any) => {
     }
 }
 
-export default connect(mapStateToProps)(reduxForm({
+
+
+export default connect(mapStateToProps, { updateNode })(reduxForm({
     form:"viewPanelForm",
     enableReinitialize: true   
 })(ViewPanelForm));
