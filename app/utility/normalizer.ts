@@ -10,7 +10,7 @@ export function idGenerator() : number {
 /*
 *   Flatten the nested structure of the tree-view to array-view
 */
-const normalize = (node: Node) : any => {    
+const normalize = (node: any) : any => {    
     if (!node) {
         return {};
     }
@@ -37,14 +37,14 @@ const normalize = (node: Node) : any => {
 *   Replace the children array of each node by the ids of its children after flattening
 */
 
-const simplifyNodes = (nodes: any) : any => {
+const simplifyNodes = (nodes: any) : {[prop:number] : Node} => {
     return Object.keys(nodes).map((key, index) => {
        let items = nodes[key].items ? nodes[key].items.map((item : any)=>item.id) : [];
        return { ...nodes[key], items }
     });
 }
 
-export function normalizeData(root : Node) {
+export function normalizeData(root : any) : {[prop:number] : Node} {
     let nodes = normalize(root);
     return simplifyNodes(nodes);
 }

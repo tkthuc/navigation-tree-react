@@ -4,8 +4,9 @@ import { Node } from '../reducers';
 
 
 export default function TreeNode(props : {
-    node:Node, paddingLevel:number, 
-    currentId: string,
+    nodes:{[prop:number]: Node}, 
+    paddingLevel:number, 
+    currentId: number,
     updateCurrentNode: any
 }) : JSX.Element {
     let style = {
@@ -19,13 +20,17 @@ export default function TreeNode(props : {
     return (
         <div>
             <input type="checkbox" id={`${props.currentId}`}/>
-            <label htmlFor={`${props.currentId}`} onClick={() => props.updateCurrentNode(props.node)}> {props.node.label} </label>
+            <label htmlFor={`${props.currentId}`} onClick={() => props.updateCurrentNode(props.currentId)}> {props.nodes[props.currentId].label} </label>
             <ul style={style}>
             {
-                props.node.items && props.node.items.map((item,index) => {
+                props.nodes[props.currentId].items && props.nodes[props.currentId].items.map((item,index) => {
                   return <li key={index}>
-                            <TreeNode node={item} paddingLevel={props.paddingLevel+1} currentId={`${props.currentId}${index}`} 
-                                    updateCurrentNode={props.updateCurrentNode}></TreeNode>  
+                            <TreeNode 
+                                    nodes={props.nodes} 
+                                    paddingLevel={props.paddingLevel+1} 
+                                    currentId={item} 
+                                    updateCurrentNode={props.updateCurrentNode}>
+                            </TreeNode>  
                          </li>
                 })
             }

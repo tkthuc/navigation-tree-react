@@ -1,39 +1,39 @@
 import { Node } from '../reducers';
 
 export const UPDATE_NODE = 'UPDATE_NODE';
-export const CHANGE_NODE = 'CHANGE_NODE';
+export const SWITCH_NODE = 'SWITCH_NODE';
 export const UPDATE_ROOT = 'UPDATE_ROOT';
 export const FETCH_ROOT = 'FETCH_ROOT';
 
 export interface Action {
     type: string,
-    node: Node
+    data: any   
 }
 
-export function updateNode(node : Node) : Action {
+export function updateNode(data : Node) : Action {
     return {
         type: UPDATE_NODE,
-        node,
+        data,
     }
 }
 
 export function updateRoot(root: Node) : Action {
     return {
         type: UPDATE_ROOT,
-        node: root,
+        data: root,
     }
 }
 
 export function fetchRoot() : Action {
     return {
         type: FETCH_ROOT,      
-        node: null
+        data: null
     }
 }
 
-export function changeNode(node: Node): Action {
+export function switchNode(data: {id: number}): Action {
     return {
-        type: CHANGE_NODE,
-        node,
+        type: SWITCH_NODE,
+        data,
     }
 }

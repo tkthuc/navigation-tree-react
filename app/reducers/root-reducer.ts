@@ -1,50 +1,18 @@
 import { Node } from './current-node-reducer';
-import { UPDATE_ROOT, Action, FETCH_ROOT } from '../actions';
-import { normalizeData } from '../utility';
+import { UPDATE_NODE, UPDATE_ROOT, Action, FETCH_ROOT, SWITCH_NODE } from '../actions';
+import initialRoot from './data';
 
-const initialRoot  = {
-    label:'Root',
-    data : {
-        firstName: "Steve",
-        lastName: "Tran"
-    },
-    items:[
-        {
-            label: 'First Child',                    
-            data: {
-                firstName: "Kevin",
-                lastName: "Lee"
-            }
-        },
-        {
-            label: 'Second Child',
-            data: {
-                firstName: "Ivan",
-                lastName: "Ivanov"
-            },
-            items: [
-                {
-                    label: 'Child of Second Child',
-                    data: {
-                        firstName: "Curtis",
-                        lastName: "White"
-                    }
-                },
-            ]
-        }
-    ]
-};
-
-Object.freeze(initialRoot);
-
-const data = normalizeData(initialRoot);
-
-export default function rootReducer( state = {label: "Root"}, action: Action) : any{
+export default function rootReducer( state = {}, action: Action) : any{
     switch (action.type) {
         case(UPDATE_ROOT):
-            return (<any>Object).assign({},state, {label: action.node.label, items:action.node.items});   
+            return (<any>Object).assign({},state, {label: action.data.label, items:action.data.items});   
         case(FETCH_ROOT):
             return initialRoot;
+        case(UPDATE_NODE):
+            return {
+                ...state,
+                [action.data.id]: {...state[action.data.id], data:action.data.data}
+            }       
         default:
             return state;
     }

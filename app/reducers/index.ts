@@ -8,6 +8,6 @@ export * from './current-node-reducer';
 
 export default combineReducers({
     currentNode: currentNodeReducer,
-    root: rootReducer,
+    nodes: rootReducer,
     form: formReducer
 });

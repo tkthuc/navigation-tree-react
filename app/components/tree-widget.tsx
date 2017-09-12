@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { UPDATE_NODE, updateNode, updateRoot, fetchRoot } from '../actions';
+import { UPDATE_NODE, switchNode, updateRoot, fetchRoot } from '../actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Node } from '../reducers';
 import TreeNode from './tree-node';
 
-export interface TreeProps { name: string; root?: Node, getRoot: any, updateCurrentNode: any}
+export interface TreeProps { name: string; nodes?: {[prop:number]: Node}, getRoot: any, updateCurrentNode: any}
 
-// 'HelloProps' describes the shape of props.
 // State is never set so we use the 'undefined' type.
 class Tree extends React.Component<TreeProps, undefined> {
     
@@ -20,22 +19,30 @@ class Tree extends React.Component<TreeProps, undefined> {
     }
   
 
-    updateCurrentNode(node: Node) {
-        this.props.updateCurrentNode(node);       
+    updateCurrentNode(id:number) {
+        this.props.updateCurrentNode(id);       
     }
     
-    render() {        
+    render() {     
+        if(Object.keys(this.props.nodes).length === 0 ){ 
+            return <div></div>
+        }   
         return (
             <div>               
-                <TreeNode node={this.props.root} paddingLevel={1} currentId="0" updateCurrentNode={this.updateCurrentNode.bind(this)}></TreeNode>
+                <TreeNode 
+                        nodes={this.props.nodes} 
+                        paddingLevel={1} 
+                        currentId={0} 
+                        updateCurrentNode={this.updateCurrentNode.bind(this)}></TreeNode>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state : {root: Node, currentNode: Node}, props : any) : any => {
+const mapStateToProps = (state : {nodes: {[prop:number] :Node}, currentNode: any}, props : any) : any => {
     return {
-        root: state.root
+        nodes: state.nodes,
+        currentNode: state.currentNode
     }
 }
 
@@ -44,8 +51,8 @@ const mapDispatchToProps =  (dispatch : Dispatch<any>) : any => {
         getRoot: () => {
             dispatch(fetchRoot());
         },
-        updateCurrentNode: (node: Node) => {
-            dispatch(updateNode(node));
+        updateCurrentNode: (id: number) => {
+            dispatch(switchNode({id}));
         }
     }
 }

@@ -15,10 +15,11 @@ export interface NodeData{
 interface CustomFormProps extends InjectedFormProps{
     handleSubmit: any;  
     updateNode: any; 
+    id: number;
   }
 
 
-const ViewPanelForm = (props:CustomFormProps) :any => {    
+const ViewPanelForm = (props:CustomFormProps) : JSX.Element => {    
 
     const labels :  NodeData = {
         'firstName': 'First Name',
@@ -27,13 +28,7 @@ const ViewPanelForm = (props:CustomFormProps) :any => {
     }
    
     const onSubmit = (values: any) => {
-        props.updateNode({
-            type: UPDATE_NODE,
-            node: {
-                firstName: values.firstName,
-                lastName: values.lastName,
-            }
-        });
+        props.updateNode({id : props.id, data : values});
     }
 
    const renderField = (field : any ) :JSX.Element => {             
@@ -54,8 +49,7 @@ const ViewPanelForm = (props:CustomFormProps) :any => {
 
 
     return (<form onSubmit={props.handleSubmit(onSubmit.bind(this))}>                   
-                    <Field name="firstName"  component= {renderField} type="text"/>   
-                    {/* <Field name="firstName"  component= "input" type="text"/>                                           */}
+                    <Field name="firstName"  component= {renderField} type="text"/>                                                     
                     <Field name="lastName"  component= {renderField} type="text"/>                    
                     <button type="submit" className="btn btn-primary">Submit</button>
     </form>);
@@ -63,15 +57,17 @@ const ViewPanelForm = (props:CustomFormProps) :any => {
 }
 
 
-const mapStateToProps = ( state: {currentNode: Node}, props: any) => {
+const mapStateToProps = ( state: {currentNode: {id: number}, nodes: {[prop:number] : Node}}, props: any) => {
     return {
-        initialValues  : state.currentNode.data
+        initialValues  : state.nodes[state.currentNode.id] ? state.nodes[state.currentNode.id].data : {},
+        id: state.currentNode.id
     }
 }
 
 
-
-export default connect(mapStateToProps, { updateNode })(reduxForm({
+const form = reduxForm({
     form:"viewPanelForm",
     enableReinitialize: true   
-})(ViewPanelForm));
+})(ViewPanelForm) as any;
+
+export default connect(mapStateToProps, { updateNode })(form);
