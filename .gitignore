@@ -9,4 +9,5 @@ coverage
 docker
 
 .idea/
+__snapshots__
 .vscode
