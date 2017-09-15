@@ -30,7 +30,6 @@
     ]
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.54",
     "@types/jest": "^20.0.8",
     "babel-core": "^6.21.0",
     "babel-jest": "^21.0.2",
