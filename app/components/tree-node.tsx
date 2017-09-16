@@ -13,14 +13,12 @@ export default function TreeNode(props : {
         "paddingLeft": `${props.paddingLevel*5}px`,
         "marginTop": "0px",
         "listStyle":"none"
-    }
-
- 
+    } 
     
     return (
         <div>
             <input type="checkbox" id={`${props.currentId}`}/>
-            <label htmlFor={`${props.currentId}`} onClick={() => props.updateCurrentNode(props.currentId)}> {props.nodes[props.currentId].label} </label>
+            <label data-id={`${props.currentId}`} htmlFor={`${props.currentId}`} onClick={() => props.updateCurrentNode(props.currentId)}> {props.nodes[props.currentId].label} </label>
             <ul style={style}>
             {
                 props.nodes[props.currentId].items && props.nodes[props.currentId].items.map((item,index) => {
