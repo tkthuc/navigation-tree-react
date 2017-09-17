@@ -31,10 +31,7 @@ const ViewPanelForm = (props:CustomFormProps) : JSX.Element => {
         props.updateNode({id : props.id, data : values});
     }
 
-   const renderField = (field : any ) :JSX.Element => {             
-        const updateValue = (event: any) => {
-            console.log(event.target.value);            
-        }
+   const renderField = (field : any ) :JSX.Element => {                     
         return (            
                 <div className="form-group">
                     <label>{labels[field.input.name]}</label>

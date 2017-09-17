@@ -27,15 +27,23 @@ describe('TreeNode component renders into a tree structure',function(){
             }
         };
 
+        const switchNode = (values) =>{
+            console.log(values);
+        };
+
         const updateCurrentNode = (values) =>{
             console.log(values);
         };
+        
         const wrapper = mount(
             <TreeNode 
                     nodes={nodes} 
                     paddingLevel={1} 
                     currentId={0}  
-                    updateCurrentNode={updateCurrentNode}           
+                    disableEdit= {()=>{}}
+                    ui={ {0: {inEditMode: false}} }
+                    switchNode={switchNode}           
+                    updateCurrentNode={updateCurrentNode}
             ></TreeNode>
         );       
         expect(toJson(wrapper)).toMatchSnapshot();
