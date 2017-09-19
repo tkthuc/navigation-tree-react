@@ -1,4 +1,4 @@
-import { Action, ENABLE_EDIT, DISABLE_EDIT } from '../actions';
+import { Action, ENABLE_EDIT, DISABLE_EDIT, UPDATE_NODE } from '../actions';
 
 export default function uiReducer(state = {}, action : Action) {
     switch(action.type) {

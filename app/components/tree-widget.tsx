@@ -86,8 +86,7 @@ class Tree extends React.Component<TreeProps, any> {
 
     handleContextMenu(e) {        
         if(ContextMenuHelper._clickInsideElement(e,'tree-widget','label')){
-            e.preventDefault();                  
-
+            e.preventDefault();           
             this.setState({
                 contextMenuVisible: true,   
                 currentId: e.target.getAttribute('data-id')            

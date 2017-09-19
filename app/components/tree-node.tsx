@@ -23,21 +23,33 @@ export default class TreeNode extends React.Component <{
             "listStyle":"none"
         } 
         this.state = {
-            label : ""
+            label : this.props.nodes[this.props.currentId].label,
+            previousLabel: this.props.nodes[this.props.currentId].label
         }
     }    
 
-    onKeyDownEvent(id: number, event: any) {
-        if(event.keyCode == 13 ) {
-            this.props.updateCurrentNode(id, this.state.label);
+    onKeyDownEvent(id: number, event: any) {               
+        if(event.keyCode == 13 ) {  
+            this.setState({
+                previousLabel: this.state.label
+            });          
             this.props.disableEdit(id);
-        }              
+        }   
+        if(event.keyCode == 27) {
+            this.setState({
+                label: this.state.previousLabel
+            });          
+            this.props.disableEdit(id);
+            this.props.updateCurrentNode(id, this.state.previousLabel);
+            event.preventDefault();
+        }          
     }
 
-    onChangeEvent(event) {
+    onChangeEvent(id: number, event) {
         this.setState({
             label: event.target.value
         });
+        this.props.updateCurrentNode(id, event.target.value);
     }
     
     render() {
@@ -49,7 +61,8 @@ export default class TreeNode extends React.Component <{
                         ?
                         <input data-id={`${this.props.currentId}`} 
                             onKeyDown={(e) => this.onKeyDownEvent(this.props.currentId, e)}
-                            onChange= {this.onChangeEvent.bind(this)} 
+                            onChange= {(e) => this.onChangeEvent(this.props.currentId,e)} 
+                            value= {this.state.label}
                         />  
                         :
                         <label data-id={`${this.props.currentId}`} htmlFor={`${this.props.currentId}`} onClick={() => this.props.switchNode(this.props.currentId)}> {this.props.nodes[this.props.currentId].label} </label>

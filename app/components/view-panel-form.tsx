@@ -2,7 +2,7 @@ import * as React from 'react';
 import { InjectedFormProps, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { updateNode, UPDATE_NODE } from '../actions';
+import { updateNode, UPDATE_NODE, disableEdit } from '../actions';
 import { Node } from '../reducers';
 
 export interface NodeData{
@@ -14,8 +14,9 @@ export interface NodeData{
 
 interface CustomFormProps extends InjectedFormProps{
     handleSubmit: any;  
-    updateNode: any; 
+    updateNode: any;  
     id: number;
+    disableEdit: any;
   }
 
 
@@ -28,7 +29,8 @@ const ViewPanelForm = (props:CustomFormProps) : JSX.Element => {
     }
    
     const onSubmit = (values: any) => {
-        props.updateNode({id : props.id, data : values});
+        props.updateNode({id : props.id, data : values});     
+        props.disableEdit({id: props.id});
     }
 
    const renderField = (field : any ) :JSX.Element => {                     
@@ -67,4 +69,4 @@ const form = reduxForm({
     enableReinitialize: true   
 })(ViewPanelForm) as any;
 
-export default connect(mapStateToProps, { updateNode })(form);
+export default connect(mapStateToProps, { updateNode, disableEdit })(form);
