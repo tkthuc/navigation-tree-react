@@ -10,6 +10,8 @@ describe(' Testing normalizer ', function() {
                 }
             ] 
         }
-        expect(Object.keys(normalizeData(original))).toEqual(['0','1']);
+        const transformedData = normalizeData(original);      
+        expect(Object.keys(transformedData)).toEqual(['0','1']);
+        expect(transformedData[1].parent).toEqual(0);         
     });
 })

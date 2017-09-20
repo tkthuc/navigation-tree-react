@@ -23,12 +23,20 @@ const initialRoot  = {
             },
             items: [
                 {
-                    label: 'Child of Second Child',
+                    label: 'First Child of Second Child',
                     data: {
                         firstName: "Curtis",
                         lastName: "White"
                     }
                 },
+                {
+                    label: 'Second Child of Second Child',
+                    data: {
+                        firstName: "Curtis",
+                        lastName: "White"
+                    }
+                },
+
             ]
         }
     ]

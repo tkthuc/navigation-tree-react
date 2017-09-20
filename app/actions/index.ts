@@ -7,6 +7,7 @@ export const FETCH_ROOT = 'FETCH_ROOT';
 export const ADD_CHILDREN = 'ADD_CHILDREN';
 export const ENABLE_EDIT = 'ENABLE_EDIT';
 export const DISABLE_EDIT = 'DISABLE_EDIT';
+export const DELETE_NODE = 'DELETE_NODE';
 
 export interface Action {
     type: string,
@@ -58,6 +59,13 @@ export function enableEdit(data : { id: number }) : Action {
 export function disableEdit(data : { id: number }) : Action {
     return {
         type: DISABLE_EDIT,
+        data,
+    }
+}
+
+export function deleteNode(data : { id: number }) : Action {
+    return {
+        type: DELETE_NODE,
         data,
     }
 }

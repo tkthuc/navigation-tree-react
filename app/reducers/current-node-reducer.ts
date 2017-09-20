@@ -5,7 +5,8 @@ export interface Node {
     items?: number[],
     data?: any,
     label: string,
-    id?: number
+    id?: number,
+    parent?: number
 };
 
 const initialNode = {

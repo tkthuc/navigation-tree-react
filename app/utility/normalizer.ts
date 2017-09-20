@@ -21,12 +21,12 @@ const normalize = (node: any) : any => {
     }
 
     let items = _.map(node.items, item => {
-        return { ...item, id: idGenerator() };
+        return { ...item, id: idGenerator(), parent: id};
     });
 
 
     const list = _.reduce(items,(list,item) => {       
-        const sublist = {...normalize( {...item})};
+        const sublist = {...normalize(item)};
         return {...list, ...sublist};
     },{})    
    
@@ -38,10 +38,10 @@ const normalize = (node: any) : any => {
 */
 
 const simplifyNodes = (nodes: any) : {[prop:number] : Node} => {
-    return Object.keys(nodes).map((key, index) => {
+    return Object.keys(nodes).reduce((list, key) => {
        let items = nodes[key].items ? nodes[key].items.map((item : any)=>item.id) : [];
-       return { ...nodes[key], items }
-    });
+       return {...list, [key]: { ...nodes[key], items }}
+    }, {});
 }
 
 export function normalizeData(root : any) : {[prop:number] : Node} {
