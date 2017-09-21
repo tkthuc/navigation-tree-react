@@ -3,7 +3,7 @@ import { Node } from './node-interface';
 import { deleteNode } from './reducer-utils';
 import { UPDATE_NODE, DELETE_NODE, Action, FETCH_ROOT, SWITCH_NODE, ADD_CHILDREN, ENABLE_EDIT } from '../actions';
 import initialRoot from './data';
-import { idGenerator, idReset }  from '../utility';
+import { idGenerator }  from '../utility';
 
 let rootId = 0;
 
@@ -16,7 +16,7 @@ export default function rootReducer( state = {}, action: Action) : any{
         case(UPDATE_NODE):
             // in case the root has been deleted
             if (action.data.id < 0) {
-                rootId = idReset();               
+                rootId = idGenerator();               
                 return {
                     ...state,
                     [rootId]: {
