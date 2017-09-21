@@ -4,7 +4,9 @@ import currentNodeReducer from './current-node-reducer';
 import rootReducer from './root-reducer';
 import uiReducer from './ui-reducer';
 
-export * from './current-node-reducer';
+export { Node } from './node-interface';
+
+export { getRootId } from './root-reducer';
 
 
 export default combineReducers({

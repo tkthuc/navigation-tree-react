@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { UPDATE_NODE, switchNode, updateRoot, fetchRoot, addChildren, enableEdit, updateNode, disableEdit } from '../actions';
+import { UPDATE_NODE, switchNode, fetchRoot, addChildren, enableEdit, updateNode, disableEdit, deleteNode } from '../actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Node } from '../reducers';
+import { Node, getRootId } from '../reducers';
 import TreeNode from './tree-node';
 import ContextMenu from './context-menu';
 import ContextMenuHelper from './context-menu-position';
@@ -16,6 +16,7 @@ export interface TreeProps {
     enableEdit: any,
     disableEdit: any,
     updateCurrentNode: any,
+    deleteNode: any,
     ui: any,
 }
 
@@ -45,6 +46,7 @@ class Tree extends React.Component<TreeProps, any> {
                 label : 'Delete node',
                 event : (node: Node) => {
                     console.log(`Delete node for Node ${node.id}`);
+                    this.props.deleteNode(node.id);
                 }
             },
             {
@@ -113,7 +115,7 @@ class Tree extends React.Component<TreeProps, any> {
                 <TreeNode 
                         nodes={this.props.nodes} 
                         paddingLevel={1} 
-                        currentId={0} 
+                        currentId={ getRootId() } 
                         ui={this.props.ui}
                         disableEdit={this.props.disableEdit}
                         switchNode={this.switchNode.bind(this)}                     
@@ -154,6 +156,9 @@ const mapDispatchToProps =  (dispatch : Dispatch<any>) : any => {
         },
         updateCurrentNode: (id: number, node: Node) => {
             dispatch(updateNode(node))
+        },
+        deleteNode: (id: number) => {
+            dispatch(deleteNode({id}));
         }
     }
 }

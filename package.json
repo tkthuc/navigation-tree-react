@@ -4,7 +4,7 @@
   "description": "UI Tree using React",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "webpack",
     "start": "webpack-dev-server --progress --colors --hot"
   },

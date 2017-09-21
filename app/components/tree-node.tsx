@@ -53,6 +53,7 @@ export default class TreeNode extends React.Component <{
     }
     
     render() {
+       
         return (
             <div>
                 <input type="checkbox" id={`${this.props.currentId}`}/>

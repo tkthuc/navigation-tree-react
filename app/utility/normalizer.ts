@@ -7,6 +7,11 @@ export function idGenerator() : number {
     return id++;
 }
 
+export function idReset() {
+    id = 0;
+    return id++;
+}
+
 /*
 *   Flatten the nested structure of the tree-view to array-view
 */

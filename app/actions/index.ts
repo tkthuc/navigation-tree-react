@@ -2,7 +2,6 @@ import { Node } from '../reducers';
 
 export const UPDATE_NODE = 'UPDATE_NODE';
 export const SWITCH_NODE = 'SWITCH_NODE';
-export const UPDATE_ROOT = 'UPDATE_ROOT';
 export const FETCH_ROOT = 'FETCH_ROOT';
 export const ADD_CHILDREN = 'ADD_CHILDREN';
 export const ENABLE_EDIT = 'ENABLE_EDIT';
@@ -18,13 +17,6 @@ export function updateNode(data : Node) : Action {
     return {
         type: UPDATE_NODE,
         data,
-    }
-}
-
-export function updateRoot(root: Node) : Action {
-    return {
-        type: UPDATE_ROOT,
-        data: root,
     }
 }
 

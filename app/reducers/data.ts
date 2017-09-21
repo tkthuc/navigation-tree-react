@@ -1,5 +1,4 @@
 import { normalizeData } from '../utility';
-import { Node } from './current-node-reducer';
 
 const initialRoot  = {
     label:'Root',
@@ -32,8 +31,8 @@ const initialRoot  = {
                 {
                     label: 'Second Child of Second Child',
                     data: {
-                        firstName: "Curtis",
-                        lastName: "White"
+                        firstName: "Magaret",
+                        lastName: "Black"
                     }
                 },
 
