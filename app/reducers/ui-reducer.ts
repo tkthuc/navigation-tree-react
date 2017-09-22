@@ -28,7 +28,7 @@ export default function uiReducer(state = {}, action : Action) {
         }
 
         case DELETE_NODE: {
-            return _.omit(state, [action.data.id]);
+            return _.omit(state, action.data);
         }
 
         default:

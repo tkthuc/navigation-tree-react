@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
 import { Node } from './node-interface';
-import { deleteNode } from './reducer-utils';
-import { UPDATE_NODE, DELETE_NODE, Action, FETCH_ROOT, SWITCH_NODE, ADD_CHILDREN, ENABLE_EDIT } from '../actions';
+import { UPDATE_NODE, DELETE_NODE, Action, FETCH_ROOT, SWITCH_NODE, ADD_CHILDREN, ENABLE_EDIT, DETACH_NODE } from '../actions';
 import initialRoot from './data';
 import { idGenerator }  from '../utility';
 
@@ -35,8 +34,21 @@ export default function rootReducer( state = {}, action: Action) : any{
                     label: action.data.label ? action.data.label : state[action.data.id].label
                 }
             }   
-        case (DELETE_NODE) : {            
-            return deleteNode(state, action.data.id);
+        case DELETE_NODE : {                    
+            return _.omit(state, action.data);
+        }
+        case DETACH_NODE : {
+            if ( state[action.data.id].parent === undefined) {
+                return state;
+            }
+
+            const parent = state[action.data.id].parent;
+            const siblings =  state[parent].items.filter(item => item !== action.data.id);
+
+            return {
+                ...state,
+                [parent]: { ...state[parent], items: siblings},
+            }
         }
         case(ADD_CHILDREN): {
             let childrenId = idGenerator();
@@ -46,7 +58,7 @@ export default function rootReducer( state = {}, action: Action) : any{
                    ...state[action.data.id], 
                    items: (state[action.data.id].items || []).concat([childrenId]),                    
                },
-               [childrenId] : { label:"New Node", items:[], id: childrenId } 
+               [childrenId] : { label:"New Node", items:[], id: childrenId, parent: action.data.id } 
             }     
         }        
         default:

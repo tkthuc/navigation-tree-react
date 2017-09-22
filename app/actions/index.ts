@@ -7,6 +7,7 @@ export const ADD_CHILDREN = 'ADD_CHILDREN';
 export const ENABLE_EDIT = 'ENABLE_EDIT';
 export const DISABLE_EDIT = 'DISABLE_EDIT';
 export const DELETE_NODE = 'DELETE_NODE';
+export const DETACH_NODE = 'DETACH_NODE';
 
 export interface Action {
     type: string,
@@ -55,9 +56,22 @@ export function disableEdit(data : { id: number }) : Action {
     }
 }
 
-export function deleteNode(data : { id: number }) : Action {
+export function deleteNode(data : number | number[]) : Action {
+    let listOfIds = [];
+    if (!Array.isArray(data)) {
+        listOfIds = listOfIds.concat([data]);
+    }else{
+        listOfIds = data;
+    }
     return {
         type: DELETE_NODE,
+        data: listOfIds,        
+    }
+}
+
+export function detachFromParent( data: { id: number }){
+    return {
+        type: DETACH_NODE,
         data,
     }
 }

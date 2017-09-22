@@ -21,6 +21,9 @@ export function  getDescendants(nodes: {[prop:number]:Node}, id: number) {
 };
     
 export function deleteNode(nodes: {[prop:number]:Node}, id: number) {
+        if(!nodes[id]) {
+            return nodes;
+        }
         const descendants: number[] = getDescendants(nodes, id);
         const predecessor: number[] = (nodes[id]).hasOwnProperty('parent') ? [nodes[id].parent] : [];
         if (predecessor.length > 0) {

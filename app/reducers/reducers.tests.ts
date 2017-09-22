@@ -56,19 +56,18 @@ describe("Testing reducer for list of nodes", () => {
     it(' should delete node correctly ', function() {      
         let newState = rootReducer(initialState,{
                                                 type: types.DELETE_NODE,
+                                                data: [1]
+                                            });
+        expect(newState[1]).not.toBeDefined();                                           
+    });
+
+    it(' should detach node correctly from its parent ', function() {      
+        let newState = rootReducer(initialState,{
+                                                type: types.DETACH_NODE,
                                                 data: {
                                                     id: 1
                                                 }
                                             });
-        expect(newState[1]).not.toBeDefined();
-        expect(newState[0].items.length).toBe(0);
-
-        let newStateAfterDeletingRoot =  rootReducer(initialState,{
-                                                type: types.DELETE_NODE,
-                                                data: {
-                                                    id: 0
-                                                }
-                                            });
-        expect(Object.keys(newStateAfterDeletingRoot).length).toBe(0);                                    
+        expect(newState[0].items.length).toEqual(0);                                              
     });
 });

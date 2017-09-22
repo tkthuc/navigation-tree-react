@@ -5,7 +5,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import treeReducer from './reducers';
 import Tree from "./components/tree-widget";
@@ -13,8 +15,10 @@ import ViewPanel from "./components/view-panel";
 import './app.scss';
 
 let store = createStore(
-    treeReducer,
-    composeWithDevTools()
+    treeReducer,   
+    composeWithDevTools(
+        applyMiddleware(thunk),
+    )
 );
 
 let nameStyle = {

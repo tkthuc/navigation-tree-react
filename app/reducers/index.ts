@@ -7,6 +7,7 @@ import uiReducer from './ui-reducer';
 export { Node } from './node-interface';
 
 export { getRootId } from './root-reducer';
+export * from './reducer-utils';
 
 
 export default combineReducers({

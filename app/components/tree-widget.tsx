@@ -6,6 +6,7 @@ import { Node, getRootId } from '../reducers';
 import TreeNode from './tree-node';
 import ContextMenu from './context-menu';
 import ContextMenuHelper from './context-menu-position';
+import { deleteNodeFromStore } from '../middleware';
 
 export interface TreeProps { 
     name: string; 
@@ -158,7 +159,7 @@ const mapDispatchToProps =  (dispatch : Dispatch<any>) : any => {
             dispatch(updateNode(node))
         },
         deleteNode: (id: number) => {
-            dispatch(deleteNode({id}));
+            dispatch(deleteNodeFromStore({id}));
         }
     }
 }
